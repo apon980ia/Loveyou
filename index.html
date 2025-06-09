@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Love for Meskat</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Baloo+2&display=swap');
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Baloo 2', cursive;
+      background: linear-gradient(to right, #fbc2eb, #a6c1ee);
+      overflow-x: hidden;
+    }
+
+    #step1, #step2 {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #step2 {
+      display: none;
+      background: linear-gradient(to top, #fbc2eb, #a6c1ee);
+    }
+
+    /* Typing effect */
+    #typingText {
+      font-size: 3.5rem;
+      color: #d62828;
+      white-space: nowrap;
+      overflow: hidden;
+      border-right: 3px solid #d62828;
+      width: 0;
+      animation: typing 4s steps(20) forwards, blink 0.75s step-end infinite;
+      margin-bottom: 40px;
+    }
+
+    @keyframes typing {
+      to { width: 18ch; }
+    }
+
+    @keyframes blink {
+      50% { border-color: transparent; }
+    }
+
+    /* Letters A P O N */
+    #floatingLetters {
+      display: flex;
+      gap: 25px;
+      margin-bottom: 20px;
+    }
+
+    .letter {
+      font-size: 3rem;
+      color: #1d3557;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: float 1s forwards;
+      cursor: pointer;
+    }
+
+    .letter:nth-child(1) { animation-delay: 4.5s; }
+    .letter:nth-child(2) { animation-delay: 5s; }
+    .letter:nth-child(3) { animation-delay: 5.5s; }
+    .letter:nth-child(4) { animation-delay: 6s; }
+
+    @keyframes float {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .collected {
+      color: #f72585;
+      text-shadow: 0 0 10px #f72585;
+      pointer-events: none;
+    }
+
+    #collectText {
+      font-size: 1.3rem;
+      color: #444;
+      margin-bottom: 50px;
+    }
+
+    /* Heart blast */
+    #heartBlast {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 10;
+      pointer-events: none;
+    }
+
+    .heart {
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      background: red;
+      clip-path: polygon(50% 0%, 61% 17%, 78% 17%, 85% 25%, 85% 41%, 50% 82%, 15% 41%, 15% 25%, 22% 17%, 39% 17%);
+      animation: explode 1s forwards ease-out;
+    }
+
+    @keyframes explode {
+      0% {opacity: 1; transform: scale(1) translate(0, 0);}
+      100% {
+        opacity: 0;
+        transform: scale(0.5) translate(var(--x), var(--y));
+      }
+    }
+
+    /* Balloons */
+    .balloon {
+      position: absolute;
+      bottom: -120px;
+      width: 70px;
+      height: 100px;
+      background: linear-gradient(45deg, #ff758c, #ff7eb3);
+      border-radius: 50% 50% 45% 45%;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      animation: rise 7s forwards ease;
+      cursor: pointer;
+    }
+
+    .balloon:nth-child(1) { left: 20%; animation-delay: 0s; }
+    .balloon:nth-child(2) { left: 50%; animation-delay: 2s; }
+    .balloon:nth-child(3) { left: 80%; animation-delay: 4s; }
+
+    @keyframes rise {
+      0% { bottom: -120px; opacity: 1; }
+      100% { bottom: 110vh; opacity: 0; }
+    }
+
+    .pop {
+      animation: pop 0.5s forwards ease;
+    }
+
+    @keyframes pop {
+      0% { transform: scale(1); opacity: 1; }
+      100% { transform: scale(1.5); opacity: 0; }
+    }
+
+    #finalMessage, #secondMessage {
+      font-size: 2.5rem;
+      color: #d62828;
+      opacity: 0;
+      margin-top: 100px;
+      text-align: center;
+      animation: fadeIn 2s forwards ease;
+    }
+
+    #secondMessage {
+      font-size: 3rem;
+      color: #03045e;
+      animation-delay: 2s;
+    }
+
+    @keyframes fadeIn {
+      to {opacity: 1;}
+    }
+
+    .string {
+      position: absolute;
+      bottom: -30px;
+      left: 50%;
+      width: 2px;
+      height: 30px;
+      background: #333;
+      transform: translateX(-50%);
+    }
+  </style>
+</head>
+<body>
+
+<!-- Step 1 -->
+<div id="step1">
+  <div id="typingText">Love you meskat</div>
+
+  <div id="floatingLetters">
+    <div class="letter">A</div>
+    <div class="letter">P</div>
+    <div class="letter">O</div>
+    <div class="letter">N</div>
+  </div>
+
+  <div id="collectText">আপন নামটা সংগ্রহ করো</div>
+  <div id="heartBlast"></div>
+</div>
+
+<!-- Step 2 -->
+<div id="step2">
+  <div class="balloon"><div class="string"></div></div>
+  <div class="balloon"><div class="string"></div></div>
+  <div class="balloon"><div class="string"></div></div>
+
+  <div id="finalMessage">তোমাকে অনেক ভালোবাসি প্রিয়</div>
+  <div id="secondMessage">আমাকে কখনো ভুলে যেও না</div>
+</div>
+
+<script>
+  const letters = document.querySelectorAll('.letter');
+  const collectText = document.getElementById('collectText');
+  const heartBlast = document.getElementById('heartBlast');
+  const step1 = document.getElementById('step1');
+  const step2 = document.getElementById('step2');
+
+  let collected = 0;
+
+  letters.forEach(letter => {
+    letter.addEventListener('click', () => {
+      if (!letter.classList.contains('collected')) {
+        letter.classList.add('collected');
+        collected++;
+        if (collected === 4) {
+          collectText.textContent = "সংগ্রহ সম্পন্ন ❤️";
+          createHearts();
+          setTimeout(() => {
+            step1.style.display = 'none';
+            step2.style.display = 'flex';
+            launchBalloons();
+          }, 2500);
+        }
+      }
+    });
+  });
+
+  function createHearts() {
+    for (let i = 0; i < 30; i++) {
+      const h = document.createElement('div');
+      h.classList.add('heart');
+      h.style.setProperty('--x', `${(Math.random() - 0.5) * 300}px`);
+      h.style.setProperty('--y', `${(Math.random() - 0.5) * 300}px`);
+      heartBlast.appendChild(h);
+      setTimeout(() => h.remove(), 1000);
+    }
+  }
+
+  function launchBalloons() {
+    const balloons = document.querySelectorAll('.balloon');
+    let popped = 0;
+    balloons.forEach(balloon => {
+      balloon.addEventListener('click', () => {
+        if (!balloon.classList.contains('pop')) {
+          balloon.classList.add('pop');
+          popped++;
+          if (popped === balloons.length) {
+            document.getElementById('finalMessage').style.animationDelay = '1s';
+            document.getElementById('secondMessage').style.animationDelay = '4s';
+            document.getElementById('finalMessage').style.opacity = '1';
+            document.getElementById('secondMessage').style.opacity = '1';
+          }
+        }
+      });
+    });
+  }
+</script>
+</body>
+</html>
